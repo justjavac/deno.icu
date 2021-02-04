@@ -1,2 +1,1 @@
-# deno.icu
-Deno I See You
+<p align="center">Deno I See You</p>
