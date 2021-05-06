@@ -9,8 +9,8 @@ async function handleRequest(request: Request) {
   }
 
   if (pathname.startsWith("/favicon.svg")) {
-    const style = new URL("favicon.svg", import.meta.url);
-    return fetch(style);
+    const favicon = new URL("favicon.svg", import.meta.url);
+    return fetch(favicon);
   }
 
   return new Response(
