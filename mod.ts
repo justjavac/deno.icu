@@ -1,15 +1,7 @@
 import { html } from "https://deno.land/x/html/mod.ts";
 
-async function handleRequest(request: Request) {
+function handleRequest(request: Request) {
   const { pathname } = new URL(request.url);
-
-  if (pathname.startsWith("/style.css")) {
-    const style = new URL("style.css", import.meta.url);
-    const response = await fetch(style);
-    const headers = new Headers(response.headers);
-    headers.set("content-type", "text/css; charset=utf-8");
-    return new Response(response.body, { ...response, headers });
-  }
 
   if (pathname.startsWith("/favicon.svg")) {
     const favicon = new URL("favicon.svg", import.meta.url);
@@ -17,27 +9,42 @@ async function handleRequest(request: Request) {
   }
 
   return new Response(
-    html`<!doctype html>
-    <html>
-    
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Deno I See You</title>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="stylesheet" href="/style.css" />
-    </head>
-    
-    <body>
-        <div>Deno I See You</div>
-    </body>
-    
-    </html>`,
+    html`<!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+          />
+          <title>Deno I See You</title>
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+          <style type="text/css">
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+                "Segoe UI Emoji", "Segoe UI Symbol";
+              font-size: 50px;
+              height: 100vh;
+              margin: 0;
+              padding: 0;
+              color: #212529;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          </style>
+        </head>
+
+        <body>
+          <div>Deno I See You</div>
+        </body>
+      </html>`,
     {
       headers: {
         "content-type": "text/html; charset=utf-8",
       },
-    },
+    }
   );
 }
 
